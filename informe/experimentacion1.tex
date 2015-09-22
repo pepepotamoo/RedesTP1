@@ -6,7 +6,30 @@
 El experimento fue realizado en una red p\'ublica Fibertel Zone, por medio de una conexión WI-FI, en uno de los locales de Starbucks, ubicado entre Honduras y Juan B. Justo. Dentro de la red se encuentran conectados notebooks, celulares y otros dispositivos con posibilidad de conexi\'on red de las personas que se encuentran dentro del local, adem\'as del router. El día y horario de la captura fue un Viernes a las 20hs. Dentro del local se encontraban alrededor de 20 personas.
 
 \subsubsection{Descripci\'on de la captura}
-La captura se realiz\'o por 20 minutos. Capturamos 232980 paquetes, de los cuales s\'olo 162 fueron paquetes del tipo ARP; los otros paquetes encontrados fueron IP version 6, LLC, DOD Internet Protocol (IP).
+La captura se realiz\'o por 20 minutos. Capturamos 232980 paquetes, de los cuales s\'olo 162 fueron paquetes del tipo ARP. La presencia de cada paquete fue la siguiente:
+\begin{itemize}
+\item IP version 6: 0.0804\%
+\item ARP: 0.0833\%
+\item LLC: 0.0132\%
+\item DOD Internet Protocol (IP): 99.7039\%
+\end{itemize}
+Mirando la lista presentada podremos decir que la masividad de los paquetes, casi en su totalidad, son del tipo DOD Internet Protocol (IP), porque ocupa el 99.7\% de probabilidad sobre 100 posibles. Para representar los datos aportados en la lista, vamos a visualizarlos en un histograma. Cabe mencionar que, en dicho histograma, omitimos los tipos de paquete DOD Internet Protocol (IP) para permitir visualizar mejor la diferencia entre los dem\'as tipos de paquetes y evitar tener un gr\'afico que no aporte informaci\'on relevante.
+
+\begin{center}
+\includegraphics[width=0.5\textwidth]{exp1-graficos/grafico1exp1.png}
+\end{center}
+
+La entrop\'ia de la fuente S fue: 0.0337107429442.\newline
+
+Dentro de los tipos ARP s\'olo capturamos 162 paquetes, como dijimos m\'as arriba. Era esperable, dado que el porcentaje presentado anteriormente era muy bajo con respecto al total. \newline
+Vamos a analizar sobre estos, hacia que direcciones fueron enviados y que conclusiones obtenemos al respecto. Para eso podemos observar el siguiente histograma correspondiente a los IP destinos de los ARP, agrupados por la cantidad de veces que aparecieron durante la captura.
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{exp1-graficos/grafico2exp1.png}
+\end{center}
+
+La entrop\'ia de la fuente S1 fue: 2.79796437031.
+
 
 \subsubsection{An\'alisis de la captura}
 
