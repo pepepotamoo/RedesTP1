@@ -19,7 +19,7 @@ Mirando la lista presentada podremos decir que la masividad de los paquetes, cas
 \includegraphics[width=0.5\textwidth]{exp1-graficos/grafico1exp1.png}
 \end{center}
 
-La entrop\'ia de la fuente S fue: 0.0337107429442.\newline
+La entrop\'ia de la fuente $S$ fue: 0.0337107429442.\newline
 
 Dentro de los tipos ARP s\'olo capturamos 162 paquetes, como dijimos m\'as arriba. Era esperable, dado que el porcentaje presentado anteriormente era muy bajo con respecto al total. \newline
 Vamos a analizar sobre estos, hacia que direcciones fueron enviados y que conclusiones obtenemos al respecto. Para eso podemos observar el siguiente histograma correspondiente a los IP destinos de los ARP, agrupados por la cantidad de veces que aparecieron durante la captura.
@@ -28,26 +28,28 @@ Vamos a analizar sobre estos, hacia que direcciones fueron enviados y que conclu
 \includegraphics[width=0.75\textwidth]{exp1-graficos/grafico2exp1.png}
 \end{center}
 
-La entrop\'ia de la fuente S1 fue: 2.79796437031.
+La entrop\'ia de la fuente $S_1$ fue: 2.79796437031.
 
 
 \subsubsection{An\'alisis de la captura}
 
-1ra fuente:\newline
+Fuente $S$:\newline
 
-Como sabemos encontramos paquetes IPv6, ARP, LLC y DOD. DOD refiere a un paquete IPv4, asi que vamos a referirnos a \'el de ese modo.\newline
+C\'omo sabemos, encontramos paquetes IPv6, ARP, LLC y DOD IP. DOD IP refiere a un paquete IPv4, asi que vamos a referirnos a \'el de ese modo.\newline
 
-Podemos notar que las IPv4 y IPv6 consumen el 99\% de los paquetes, eso se debe a que hay un gran tr\'afico de paquetes de datos. Sin embargo el porcentaje de ARP es 0.08\%, muy bajo dado que se ha manejado un volumen de paquetes importantes (382.980 en total). Intuimos que esto se debe a que la topología de la red no sufre mucha variaciones, en consecuencia a que a cada dispositivo se le asigna una IP determinada a la hora de conectarse y no va a cambiar. Otro porcentaje un poco más alto que el de los ARP es el corresponde a los LLC (Logic Link Control) que maneja el control de errores, control del flujo, entre otras cosas.\newline
+Podemos notar que las IPv4 y IPv6 consumen el 99\% de los paquetes, eso se debe a que hay un gran tr\'afico de paquetes de datos. Cabe mencionar que el gran tr\'afico resulta de las IPv4. \newline
+El porcentaje de ARP es 0.08\%, muy bajo dado que se ha manejado un volumen de paquetes importantes (382.980 en total). Intuimos que esto se origina a que la topología de la red no sufre mucha variaciones, como consecuencia a que a cada dispositivo se le asigna una IP determinada a la hora de conectarse y no va a cambiar. \newline
+Otro porcentaje corresponde a los LLC (Logic Link Control) que maneja el control de errores, control del flujo, entre otras cosas. El LLC tuvo un porcentaje mayor que los ARP, aunque sin terminar de tener un porcentaje relevante en la captura.\newline
 
-La entropía de la fuente $S$ es 0.0337.\newline
+Otro an\'alisis interesante es ver la entrop\'ia, que nos indica la incertidumbre de la fuente. Por lo que aprendimos en las primeras clases de la materia, sabemos que la entrop\'ia m\'axima se obtiene cuando cada s\'imbolo es equiprobable, de esa manera todos los s\'imbolos tienen la misma posibilidad de salir elegidos. En este caso, la entrop\'ia m\'axima de $S$, es 2. Nuestro valor de entrop\'ia fue 0.0337, muy por debajo del valor m\'aximo. Esto se debe a que la probabilidad del s\'imbolo IPv4 abarca casi toda la probabilidad de la fuente, 99\%, y por lo tanto resulta casi inminente, si tomamos un s\'imbolo emitido por la fuente, que nos toque paquetes de este tipo. Esto \'ultimo casi que no nos deja ni rango de incertidumbre, todo lo contrario, nos da bastante certeza. \newline
 
-2da fuente:\newline
+Fuente $S_1$:\newline
 
 Dentro de los paquetes ARP podemos ver que se encuentran, en su mayoria, direcciones IP dentro de la red 10.251.24. Sin ser tan especificos notamos tres tipos de IP's, las iniciadas con 10, las iniciadas con 169 y las iniciadas con 172. Las iniciadas con 10 describen a una red simple clase A y determinan un bloque de 24bits. Las iniciadas con 172 describen a 16 redes clase B continuas. Y las inciadas en 169 describen a una red simple clase B no enrutable.\newline
 
-Pudimos notar que nuestra notebook tenía un IP correspondiente a la red 10.251.24, por lo que concluimos que el resto de las ip correspondiente a esa red son celulares y pc's de la gente que estaba en el Starbucks en ese momento. Pudimos notar una IP reservada, 169.254.255.255. Y, dado la cantidad de paquetes que recibió (casi el 50\% del total, mirar histograma) y por la particularidad de su IP, pudimos notar que la dirección 10.251.24.1 refiere al IP del router de la red.\newline
+Pudimos notar que nuestra notebook tenía un IP correspondiente a la red 10.251.24. Por lo tanto, interpretamos que el resto de las ips correspondiente a esa red, desde el host 50 al 246, podrian ser celulares y pc's de la gente que estaba en el Starbucks en ese momento. Pudimos notar una IP reservada, 169.254.255.255. Adem\'as, dado la cantidad de paquetes que recibió, casi el 50\% (mirar histograma), y la particularidad de su IP, notamos que la dirección 10.251.24.1 refiere al IP del router de la red.\newline
 
-La entropía de la fuente $S_1$ es 2.797.\newline
+Volvemos a analizar la entrop\'ia, en este caso para la fuente $S_1$. Para ello, primero, obtenemos la entrop\'ia m\'axima para esta fuente. En este caso es 4.248. Mirando el valor de entrop\'ia de la fuente, 2.798, podemos decir que es casi a la mitad con respecto a la m\'axima. Sin embargo no hay una diferencia tan marcada como en la fuente $S$. La explicaci\'on se debe a que nuestra IP m\'as alejada de la media no llega al 50\%, y en el caso anterior hab\'ia un s\'imbolo que se llevaba el 99\%. Ahora no va a ser tan sencillo predecir que paquete vamos a encontrar y por lo tanto tendremos m\'as incertidumbre sobre la fuente.\newline
 
 
 
