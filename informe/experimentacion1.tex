@@ -33,6 +33,24 @@ La entrop\'ia de la fuente S1 fue: 2.79796437031.
 
 \subsubsection{An\'alisis de la captura}
 
+1ra fuente:\newline
+
+Como sabemos encontramos paquetes IPv6, ARP, LLC y DOD. DOD refiere a un paquete IPv4, asi que vamos a referirnos a \'el de ese modo.\newline
+
+Podemos notar que las IPv4 y IPv6 consumen el 99\% de los paquetes, eso se debe a que hay un gran tr\'afico de paquetes de datos. Sin embargo el porcentaje de ARP es 0.08\%, muy bajo dado que se ha manejado un volumen de paquetes importantes (382.980 en total). Intuimos que esto se debe a que la topología de la red no sufre mucha variaciones, en consecuencia a que a cada dispositivo se le asigna una IP determinada a la hora de conectarse y no va a cambiar. Otro porcentaje un poco más alto que el de los ARP es el corresponde a los LLC (Logic Link Control) que maneja el control de errores, control del flujo, entre otras cosas.\newline
+
+La entropía de la fuente $S$ es 0.0337.\newline
+
+2da fuente:\newline
+
+Dentro de los paquetes ARP podemos ver que se encuentran, en su mayoria, direcciones IP dentro de la red 10.251.24. Sin ser tan especificos notamos tres tipos de IP's, las iniciadas con 10, las iniciadas con 169 y las iniciadas con 172. Las iniciadas con 10 describen a una red simple clase A y determinan un bloque de 24bits. Las iniciadas con 172 describen a 16 redes clase B continuas. Y las inciadas en 169 describen a una red simple clase B no enrutable.\newline
+
+Pudimos notar que nuestra notebook tenía un IP correspondiente a la red 10.251.24, por lo que concluimos que el resto de las ip correspondiente a esa red son celulares y pc's de la gente que estaba en el Starbucks en ese momento. Pudimos notar una IP reservada, 169.254.255.255. Y, dado la cantidad de paquetes que recibió (casi el 50\% del total, mirar histograma) y por la particularidad de su IP, pudimos notar que la dirección 10.251.24.1 refiere al IP del router de la red.\newline
+
+La entropía de la fuente $S_1$ es 2.797.\newline
+
+
+
 
 %Sniff de Stratbucks, el viernes.
 
