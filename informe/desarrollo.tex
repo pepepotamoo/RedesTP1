@@ -36,8 +36,7 @@ Para este punto se evaluaron distintas posibilidades para los s\'imbolos de la f
 \end{itemize}
 \vspace{0.5cm}  
 
-La primera opci\'on fue descartada porque, si bien nos permit\'ia determinar qu\'e nodos ten\'ian m\'as actividad dentro de la red, no nos daba lugar a un an\'alisis m\'as profundo, como por ejemplo determinar si se trata de servidores, gateways, etc o de nodos que hacen muchos pedidos. \\
-Por otro lado las dos opciones siguientes s\'i nos ofrec\'ian posibilidades de mayor an\'alisis sobre la red. Nos decidimos por la \'ultima, que toma el campo destino de los paquetes $who-has$, dej\'andonos ver como nodos distinguidos a los que m\'as pedidos de direcci\'on reciben.\\\\
+Finalmente se opto por la tercer opci\'on tomando como cr\'iterio de ``nodo distinguido dentro de la red'' aquel que es muy requerido dentro de la misma.\\\\
 
 As\'i, nuestra fuente qued\'o conformada de la siguiente manera:\\
 \begin{gather*}
@@ -76,7 +75,7 @@ Queda claro que por cada paquete completamos las fuentes de informaci\'on seg\'u
 
 Finalizada la observaci\'on calculamos la probabilidad de s\'imbolo $s_{i}$ de la fuente $S$ haciendo\\
 \begin{gather*}
-P(s_{i}) = cant(s_{i}) / \#S
+P(s_{i}) = \frac{cant(s_{i})}{\#S}  
 \end{gather*}
 \vspace{0.5cm}
 
