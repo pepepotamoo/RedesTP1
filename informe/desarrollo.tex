@@ -1,0 +1,87 @@
+\section{Primera consigna: capturando tr\'afico}
+\subsection{Desarrollo}
+El trabajo pr\'actico propon\'ia como primera instancia poder escuchar de forma pasiva una red local, crear una fuente de informaci\'on con determinados paquetes y analizarla.\\
+A continuaci\'on analizaremos cada punto y la forma en que lo desarrollamos.\\
+
+\subsubsection{Implementar herramienta de escucha}
+
+Una herramienta de escucha pasiva permite mirar todos los paquetes que pasan por una red local. Para la implementaci\'on utilizamos la librer\'ia de Python Scapy, como propon\'ia el enunciado del TP.\\
+Para la primer parte del desarrollo se pidi\'o que la herramienta simulara una fuente de informaci\'on $S$ con los tipos de los paquetes escuchados en un intervalo de tiempo $t_{f} - t_{i}$. \\\
+
+Es decir sea $P = \{ p_{1} \ldots p_{n} \}$ el conjunto de paquetes observados en el intervalo $t_{f} - t_{i}$ la
+fuente $S$ queda definida como, \\
+\begin{gather*}
+S = \{ p_{i}.type \; / \; p_{i} \in P \} 
+\end{gather*}
+\vspace{0.5cm}  
+
+\subsubsection{Proponer fuente de informaci\'on}
+
+En el siguiente punto se nos ped\'ia que propusieramos una fuente $S_{1} $ con el objetivo de distinguir los nodos de la red. Est\'a fuente deb\'ia estar basada \'unicamente en paquetes ARP. \\
+
+Para este punto se evaluaron distintas posibilidades para los s\'imbolos de la fuente.\\
+\begin{itemize}
+\item Tomar los campos fuente y destino de todos los paquetes ARP que aparecieran.
+\begin{itemize}
+\item Motivaciones: los s\'imbolos fueron propuestos considerando que un nodo distinguido era uno que ten\'ia mucha actividad dentro de la red, sin importar que hiciera preguntas o diera respuestas.
+\end{itemize}
+\item Tomar el campo fuente de los paquetes ARP de tipo $who-has$
+\begin{itemize}
+\item Motivaciones: los s\'imbolos fueron propuestos considerando que un nodo distinguido era uno que hac\'ia muchas preguntas dentro de la red.
+\end{itemize}
+\item Tomar el campo destino de los paquetes ARP de tipo $who-has$
+\begin{itemize}
+\item Motivaciones: los s\'imbolos fueron propuestos considerando que un nodo distinguido era uno muy requerido dentro de la red.
+\end{itemize}
+\end{itemize}
+\vspace{0.5cm}  
+
+La primera opci\'on fue descartada porque, si bien nos permit\'ia determinar qu\'e nodos ten\'ian m\'as actividad dentro de la red, no nos daba lugar a un an\'alisis m\'as profundo, como por ejemplo determinar si se trata de servidores, gateways, etc o de nodos que hacen muchos pedidos. \\
+Por otro lado las dos opciones siguientes s\'i nos ofrec\'ian posibilidades de mayor an\'alisis sobre la red. Nos decidimos por la \'ultima, que toma el campo destino de los paquetes $who-has$, dej\'andonos ver como nodos distinguidos a los que m\'as pedidos de direcci\'on reciben.\\\\
+
+As\'i, nuestra fuente qued\'o conformada de la siguiente manera:\\
+\begin{gather*}
+S_1 =  \{ p_{i}.dst / p_{i} \in P \wedge  p_{i}.type = ARP \wedge p_{i}.op = whohas \}
+\end{gather*}
+\vspace{0.5cm}
+
+\subsubsection{Adaptar la herramienta de escucha}
+
+El pr\'oximo paso fue adaptar la herramienta creada en el primer punto para poder utilizarla en el an\'alisis de las fuentes $S$ y $S_1$ de manera que nos permitiera obtener la informaci\'on y calcular la probabilidad y entrop\'ia de cada una.\\
+
+Para \'esto hicimos uso del par\'ametro $prn$ de sniff, que es una funci\'on a aplicar a cada paquete visto. \\
+Veamos c\'omo definimos esta funci\'on en pseudoc\'odigo:
+
+\begin{verbatim}
+// diccionario (tipo_paquete : cantidad) - fuente S
+diccionario_paquetes
+contador_paquetes
+// diccionario (ip_destino : cantidad) - fuente S_1
+diccionario_arp
+contador_arp
+
+// guardamos una nueva aparicion del tipo pkt.tipo
+sumar_uno(diccionario_paquetes, pkt.tipo)
+// incrementamos en 1 el contador de paquetes vistos
+contador_paquetes += 1
+
+// si es de tipo ARP lo guardamos tambien para la fuente s_1
+si pkt.tipo = ARP
+	sumar_uno(pkt.destino, diccionario_arp)
+	// incrementamos en 1 el contador de paquetes arp vistos
+	contador_arp += 1
+\end{verbatim}
+
+Queda claro que por cada paquete completamos las fuentes de informaci\'on seg\'un correspondiera, llevando una cuenta de cu\'antos paquetes aparecen por tipo en la fuente $S$, y cu\'antas veces se repite cada IP en el caso de la fuente $S_1$. \\
+
+Finalizada la observaci\'on calculamos la probabilidad de s\'imbolo $s_{i}$ de la fuente $S$ haciendo\\
+\begin{gather*}
+P(s_{i}) = cant(s_{i}) / \#S
+\end{gather*}
+\vspace{0.5cm}
+
+Luego, con el dato de la probabilidad calculamos la entrop\'ia utilizando la f\'ormula:\\
+\begin{gather*}
+H(S) = - \sum_{i = 0}^{n} p_{s_{i}}log_{2}p_{s_{i}}  \text{ bits}
+\end{gather*}
+\vspace{1cm}
